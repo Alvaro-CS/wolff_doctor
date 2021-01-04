@@ -83,12 +83,18 @@ public class DoctorPassController implements Initializable {
      * @throws IOException
      */
     private void openDoctorMenu(ActionEvent event) throws IOException {
-        Parent doctorMenuViewParent = FXMLLoader.load(getClass().getResource("DoctorMenuView.fxml"));
-        Scene doctorMenuViewScene = new Scene(doctorMenuViewParent);
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("DoctorMenuView.fxml"));
+        Parent doctorMenuViewParent = loader.load();
+        Scene DoctorMenuViewScene = new Scene(doctorMenuViewParent);
+        DoctorMenuController controller = loader.getController();
+        controller.initData(com_data_client);
         //this line gets the Stage information
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(doctorMenuViewScene);
+        window.setScene(DoctorMenuViewScene);
         window.centerOnScreen();
+
         window.show();
     }
 
