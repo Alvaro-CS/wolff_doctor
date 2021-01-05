@@ -17,13 +17,13 @@
             <TableView fx:id="table" layoutY="116.0" prefHeight="400.0" prefWidth="826.0">
                <columns>
                   <TableColumn id="id" fx:id="idColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="ID" />
-                  <TableColumn id="date" fx:id="nameColumn" prefWidth="102.4000244140625" style="-fx-alignment: CENTER;" text="Name" />
-                  <TableColumn fx:id="lastNameColumn" prefWidth="83.99998474121094" style="-fx-alignment: CENTER;" text="Last name" />
-                  <TableColumn fx:id="genderColumn" prefWidth="60.0" style="-fx-alignment: CENTER;" text="Gender" />
-                  <TableColumn fx:id="birthdateColumn" prefWidth="84.0" style="-fx-alignment: CENTER;" text="DOB" />
-                  <TableColumn fx:id="addressColumn" prefWidth="127.99993896484375" style="-fx-alignment: CENTER;" text="Address" />
-                  <TableColumn fx:id="ssnColumn" prefWidth="88.79998779296875" style="-fx-alignment: CENTER;" text="SSN" />
-                  <TableColumn fx:id="telfColumn" prefWidth="114.39996337890625" style="-fx-alignment: CENTER;" text="Phone nº" />
+                  <TableColumn id="date" fx:id="nameColumn" prefWidth="91.20001220703125" style="-fx-alignment: CENTER;" text="Name" />
+                  <TableColumn fx:id="lastNameColumn" prefWidth="95.99998474121094" style="-fx-alignment: CENTER;" text="Last name" />
+                  <TableColumn fx:id="genderColumn" prefWidth="87.20001220703125" style="-fx-alignment: CENTER;" text="Gender" />
+                  <TableColumn fx:id="birthdateColumn" prefWidth="94.39996337890625" style="-fx-alignment: CENTER;" text="DOB" />
+                  <TableColumn fx:id="addressColumn" prefWidth="136.79998779296875" style="-fx-alignment: CENTER;" text="Address" />
+                  <TableColumn fx:id="ssnColumn" prefWidth="80.00006103515625" style="-fx-alignment: CENTER;" text="SSN" />
+                  <TableColumn fx:id="telfColumn" prefWidth="80.00006103515625" style="-fx-alignment: CENTER;" text="Phone nº" />
                   <TableColumn fx:id="recordsColumn" prefWidth="92.800048828125" style="-fx-alignment: CENTER;" text="Records" />
                </columns>
             </TableView>

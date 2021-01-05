@@ -14,11 +14,7 @@
    <children>
       <Pane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="313.0" layoutY="158.0" mnemonicParsing="false" onAction="#addRecord" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #8FBC8F; -fx-border-color: #000000;" text="Add Clinical Record">
-               <font>
-                  <Font name="Book Antiqua Bold" size="17.0" />
-               </font></Button>
-            <TableView fx:id="table" layoutY="247.0">
+            <TableView fx:id="table" layoutY="116.0" prefHeight="313.0" prefWidth="876.0">
               <columns>
                 <TableColumn id="id" fx:id="idColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="ID" />
                   <TableColumn id="date" fx:id="dateColumn" prefWidth="76.0" style="-fx-alignment: CENTER;" text="Date" />
@@ -33,11 +29,6 @@
                   <TableColumn id="ecgShow_button" fx:id="ecgColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="ECG" />
               </columns>
             </TableView>
-            <Label fx:id="ecgLabel" alignment="CENTER" layoutX="619.0" layoutY="173.0" prefHeight="21.0" prefWidth="208.0" textAlignment="CENTER" textFill="#da0e0e">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
          </children>
       </Pane>
       <Pane prefHeight="115.0" prefWidth="600.0" style="-fx-background-color: e3e4e5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -52,12 +43,17 @@
                   <Image url="@images/medical-history.png" />
                </image>
             </ImageView>
-            <Label fx:id="nameLabel" layoutX="468.0" layoutY="31.0" prefHeight="58.0" prefWidth="226.0">
+            <Label fx:id="nameLabel" layoutX="468.0" layoutY="31.0" prefHeight="45.0" prefWidth="296.0">
                <font>
                   <Font name="Footlight MT Light" size="20.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" layoutX="733.0" layoutY="44.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="45.0" text="Back to menu" />
+            <Button alignment="CENTER" layoutX="773.0" layoutY="35.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="45.0" text="Back to menu" />
+            <Label fx:id="ecgLabel" alignment="CENTER" layoutX="512.0" layoutY="91.0" prefHeight="21.0" prefWidth="208.0" textAlignment="CENTER" textFill="#da0e0e">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

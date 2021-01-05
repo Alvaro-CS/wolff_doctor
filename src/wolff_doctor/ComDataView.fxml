@@ -9,7 +9,7 @@
 <AnchorPane id="AnchorPane" maxHeight="350.0" maxWidth="300.0" minHeight="282.0" minWidth="300.0" prefHeight="282.0" prefWidth="300.0" style="-fx-background-color: #e3e4e5;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wolff_doctor.ComDataController">
     
          <children>
-            <Label layoutX="105.0" layoutY="55.0" text="Settings">
+            <Label layoutX="57.0" layoutY="48.0" text="IP Address config">
                <font>
                   <Font name="Impact" size="26.0" />
                </font>

@@ -194,7 +194,7 @@ public class MedicalHistoryController implements Initializable {
     public void backToMenu(ActionEvent event) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("PatientMenuView.fxml"));
+        loader.setLocation(getClass().getResource("DoctorMenuView.fxml"));
         Parent doctorMenuViewParent = loader.load();
         Scene DoctorMenuViewScene = new Scene(doctorMenuViewParent);
         DoctorMenuController controller = loader.getController();

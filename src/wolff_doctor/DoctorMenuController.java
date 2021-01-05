@@ -132,7 +132,7 @@ public class DoctorMenuController implements Initializable {
         genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
         birthdateColumn.setCellValueFactory(new PropertyValueFactory<>("birthdate"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-        ssnColumn.setCellValueFactory(new PropertyValueFactory<>("ssNumber"));
+        ssnColumn.setCellValueFactory(new PropertyValueFactory<>("SSNumber"));
         telfColumn.setCellValueFactory(new PropertyValueFactory<>("telf"));
         recordsColumn.setCellValueFactory(new PropertyValueFactory<>("RANDOM"));
 
