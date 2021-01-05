@@ -30,7 +30,7 @@ public class Clinical_record implements Serializable {
     private transient StringProperty extra_info_prop;
     private transient StringProperty dateString_prop; 
 
-    private final SimpleDateFormat formatter;
+    private final SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy\nHH:mm:ss");
     private Integer id;
     private final String dateString;
     private Boolean palpitations;
@@ -51,7 +51,6 @@ public class Clinical_record implements Serializable {
             String extra_info) {
         this.id = id;
         Date date = new Date();
-        formatter = new SimpleDateFormat("dd-MM-yyyy\nHH:mm:ss");
         dateString=formatter.format(date);
         this.palpitations = palpitations;
         this.dizziness = dizziness;

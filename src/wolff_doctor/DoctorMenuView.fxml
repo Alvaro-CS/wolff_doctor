@@ -10,30 +10,23 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wolff_doctor.DoctorMenuController">
    <children>
       <Pane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TableView fx:id="table" layoutY="116.0">
+            <TableView fx:id="table" layoutY="116.0" prefHeight="400.0" prefWidth="826.0">
                <columns>
                   <TableColumn id="id" fx:id="idColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="ID" />
-                  <TableColumn id="date" fx:id="dateColumn" prefWidth="76.0" style="-fx-alignment: CENTER;" text="Date" />
-                  <TableColumn id="palpitation" fx:id="palpitationsColumn" prefWidth="75.20001220703125" style="-fx-alignment: CENTER;" text="Palpitations" />
-                  <TableColumn id="dizziness" fx:id="dizzinessColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Dizziness" />
-                  <TableColumn id="fatique" fx:id="fatigueColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Fatigue" />
-                  <TableColumn id="anxiety" fx:id="anxietyColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Anxiety" />
-                  <TableColumn id="chest_pain" fx:id="chest_painColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Chest Pain" />
-                  <TableColumn id="diff_breathing" fx:id="difficulty_breathingColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Difficulty Breathing" />
-                  <TableColumn id="fainting" fx:id="faintingColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="Fainting" />
-                  <TableColumn id="extra_info" fx:id="extra_infoColumn" prefWidth="123.199951171875" style="-fx-alignment: CENTER;" text="Extra Info" />
-                  <TableColumn id="ecgShow_button" fx:id="ecgColumn" prefWidth="75.0" style="-fx-alignment: CENTER;" text="ECG" />
+                  <TableColumn id="date" fx:id="nameColumn" prefWidth="102.4000244140625" style="-fx-alignment: CENTER;" text="Name" />
+                  <TableColumn fx:id="lastNameColumn" prefWidth="83.99998474121094" style="-fx-alignment: CENTER;" text="Last name" />
+                  <TableColumn fx:id="genderColumn" prefWidth="60.0" style="-fx-alignment: CENTER;" text="Gender" />
+                  <TableColumn fx:id="birthdateColumn" prefWidth="84.0" style="-fx-alignment: CENTER;" text="DOB" />
+                  <TableColumn fx:id="addressColumn" prefWidth="127.99993896484375" style="-fx-alignment: CENTER;" text="Address" />
+                  <TableColumn fx:id="ssnColumn" prefWidth="88.79998779296875" style="-fx-alignment: CENTER;" text="SSN" />
+                  <TableColumn fx:id="telfColumn" prefWidth="114.39996337890625" style="-fx-alignment: CENTER;" text="Phone nº" />
+                  <TableColumn fx:id="recordsColumn" prefWidth="92.800048828125" style="-fx-alignment: CENTER;" text="Records" />
                </columns>
             </TableView>
-            <Label fx:id="ecgLabel" alignment="CENTER" layoutX="619.0" layoutY="173.0" prefHeight="21.0" prefWidth="208.0" textAlignment="CENTER" textFill="#da0e0e">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-            </Label>
          </children>
       </Pane>
       <Pane prefHeight="115.0" prefWidth="600.0" style="-fx-background-color: e3e4e5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -48,12 +41,12 @@
                   <Font name="Ebrima Bold" size="40.0" />
                </font>
             </Label>
-            <Label fx:id="nameLabel1" layoutX="468.0" layoutY="31.0" prefHeight="58.0" prefWidth="226.0">
+            <Button alignment="CENTER" layoutX="733.0" layoutY="44.0" mnemonicParsing="false" onAction="#logOut" prefHeight="45.0" text="LOGOUT" />
+            <Label fx:id="recordLabel" alignment="CENTER" layoutX="468.0" layoutY="56.0" prefHeight="21.0" prefWidth="208.0" textAlignment="CENTER" textFill="#da0e0e">
                <font>
-                  <Font name="Footlight MT Light" size="20.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" layoutX="733.0" layoutY="44.0" mnemonicParsing="false" onAction="#logOut" prefHeight="45.0" text="LOGOUT" />
          </children>
       </Pane>
    </children>

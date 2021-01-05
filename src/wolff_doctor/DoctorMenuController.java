@@ -5,9 +5,11 @@
  */
 package wolff_doctor;
 
+import POJOS.Clinical_record;
 import POJOS.Com_data_client;
 import POJOS.Patient;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -37,58 +39,45 @@ import javafx.util.Callback;
  */
 public class DoctorMenuController implements Initializable {
 
+    private ClientThreadsServer clientThreadsServer; //we create a reference for accesing different methods
+
     private Com_data_client com_data_client;
-
     @FXML
-    private Label ecgLabel;
-
+    private Label recordLabel;
     @FXML
     private TableView<Patient> table;
-    
+
     private ObservableList<Patient> list;
-    /*
-    @FXML
-    private TableColumn<Clinical_record, Integer> idColumn;
 
     @FXML
-    private TableColumn<Clinical_record, String> dateColumn;
+    private TableColumn<Patient, Integer> idColumn;
 
     @FXML
-    private TableColumn<Clinical_record, Boolean> palpitationsColumn;
+    private TableColumn<Patient, String> nameColumn;
 
     @FXML
-    private TableColumn<Clinical_record, Boolean> dizzinessColumn;
+    private TableColumn<Patient, String> lastNameColumn;
 
     @FXML
-    private TableColumn<Clinical_record, Boolean> fatigueColumn;
+    private TableColumn<Patient, String> genderColumn;
 
     @FXML
-    private TableColumn<Clinical_record, Boolean> anxietyColumn;
-
+    private TableColumn<Patient, String> birthdateColumn;
     @FXML
-    private TableColumn<Clinical_record, Boolean> chest_painColumn;
-
+    private TableColumn<Patient, String> addressColumn;
     @FXML
-    private TableColumn<Clinical_record, Boolean> difficulty_breathingColumn;
-
+    private TableColumn<Patient, Integer> ssnColumn;
     @FXML
-    private TableColumn<Clinical_record, Boolean> faintingColumn;
-
+    private TableColumn<Patient, Integer> telfColumn;
     @FXML
-    private TableColumn<Clinical_record, String> ecgColumn;
-
-    @FXML
-    private TableColumn<Clinical_record, Button> extra_infoColumn;
-*/
-    @FXML
-    private Label nameLabel;
+    private TableColumn<Patient, String> recordsColumn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initTable();
-        //addViewButton();
+        addViewButton();
     }
-    
+
     /**
      * This method is used for passing parameters between screens.
      *
@@ -99,47 +88,69 @@ public class DoctorMenuController implements Initializable {
         loadPatients();
 
     }
-    
+
     public void loadPatients() {
         list = FXCollections.observableArrayList();
 
-        ArrayList<Patient> patients = null;//TODO GETPATIENTS
+        ArrayList<Patient> patients = getPatients();//TODO GETPATIENTS
         list.addAll(patients);
         table.setItems(list);
 
     }
 
+    private ArrayList<Patient> getPatients() {
+        try {
+            //We send the order to server that we want to search for patients
+            String order = "GET_PATIENTS";
+            ObjectOutputStream objectOutputStream = com_data_client.getObjectOutputStream();
+            objectOutputStream.writeObject(order);
+            System.out.println("Order " + order + " sent to server");
+
+            //We here need to receive from the server the patient found.
+            clientThreadsServer = new ClientThreadsServer();
+            clientThreadsServer.setCom_data_client(com_data_client);
+            new Thread(clientThreadsServer).start();
+
+            synchronized (clientThreadsServer) {
+                clientThreadsServer.wait();
+            }
+            return clientThreadsServer.getPatients();
+        } catch (IOException ex) {
+            Logger.getLogger(DoctorMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(DoctorMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     private void initTable() {
         //Here we connect the columns with the atributes
-/*
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("dateString"));
-        palpitationsColumn.setCellValueFactory(new PropertyValueFactory<>("palpitations"));
-        dizzinessColumn.setCellValueFactory(new PropertyValueFactory<>("dizziness"));
-        fatigueColumn.setCellValueFactory(new PropertyValueFactory<>("fatigue"));
-        anxietyColumn.setCellValueFactory(new PropertyValueFactory<>("anxiety"));
-        chest_painColumn.setCellValueFactory(new PropertyValueFactory<>("chest_pain"));
-        difficulty_breathingColumn.setCellValueFactory(new PropertyValueFactory<>("difficulty_breathing"));
-        faintingColumn.setCellValueFactory(new PropertyValueFactory<>("fainting"));
-        extra_infoColumn.setCellValueFactory(new PropertyValueFactory<>("extra_info"));
-        ecgColumn.setCellValueFactory(new PropertyValueFactory<>("RANDOM"));*/
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("DNI"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        birthdateColumn.setCellValueFactory(new PropertyValueFactory<>("birthdate"));
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        ssnColumn.setCellValueFactory(new PropertyValueFactory<>("ssNumber"));
+        telfColumn.setCellValueFactory(new PropertyValueFactory<>("telf"));
+        recordsColumn.setCellValueFactory(new PropertyValueFactory<>("RANDOM"));
 
     }
 
     /**
-     * This method adds the View ECG button to a column of the table, with its
-     * behaviour.
+     * This method adds the View records button to a column of the table, with
+     * its behaviour.
      *
      * @param patient
      * @param com_data_client
      */
-    /*
     private void addViewButton() {
-        Callback<TableColumn<Clinical_record, String>, TableCell<Clinical_record, String>> cellFactory
-                = new Callback<TableColumn<Clinical_record, String>, TableCell<Clinical_record, String>>() {
+        Callback<TableColumn<Patient, String>, TableCell<Patient, String>> cellFactory
+                = new Callback<TableColumn<Patient, String>, TableCell<Patient, String>>() {
             @Override
-            public TableCell call(final TableColumn<Clinical_record, String> param) {
-                final TableCell<Clinical_record, String> cell = new TableCell<Clinical_record, String>() {
+            public TableCell call(final TableColumn<Patient, String> param) {
+                final TableCell<Patient, String> cell = new TableCell<Patient, String>() {
 
                     final Button btn = new Button("VIEW");
 
@@ -151,8 +162,8 @@ public class DoctorMenuController implements Initializable {
                             setText(null);
                         } else {
                             btn.setOnAction(event -> {
-                                Clinical_record clinical_record = getTableView().getItems().get(getIndex());
-                                buttonAction(clinical_record);
+                                Patient patient = getTableView().getItems().get(getIndex());
+                                buttonAction(patient, event);
                             });
                             setGraphic(btn);
                             setText(null);
@@ -163,27 +174,25 @@ public class DoctorMenuController implements Initializable {
             }
         };
 
-        ecgColumn.setCellFactory(cellFactory);
+        recordsColumn.setCellFactory(cellFactory);
     }
 
-    private void buttonAction(Clinical_record clinical_record) {
+    private void buttonAction(Patient p, ActionEvent event) {
 
-        Integer[] ecg_data = clinical_record.getECG();
-        ECGplot e = new ECGplot(ecg_data);
-        if (ecg_data != null) {
+        ArrayList<Clinical_record> records = p.getClinical_record_list();
+        if (records != null) {
             try {
-                ecgLabel.setText("");//We clean if previously there was no ecg and msg appeared.
-                e.openECGWindow();
+                recordLabel.setText("");//We clean if previously there was no ecg and msg appeared.
+                openMedicalHistory(p, event);
             } catch (IOException ex) {
-                Logger.getLogger(MedicalHistoryController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DoctorMenuController.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         } else {
-            ecgLabel.setText("No ECG found in this record.");
+            recordLabel.setText("No records found in this patient.");
         }
 
-    }*/
-
-
+    }
 
     public ObservableList<Patient> getList() {
         return list;
@@ -211,6 +220,32 @@ public class DoctorMenuController implements Initializable {
         window.centerOnScreen();
 
         window.show();
+    }
+
+    /**
+     * This method opens the Medical History
+     *
+     * @param patient
+     * @param event
+     * @throws IOException
+     */
+    public void openMedicalHistory(Patient patient, ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+
+        loader.setLocation(getClass().getResource("MedicalHistoryView.fxml"));
+
+        Parent medicalHistoryViewParent = loader.load();
+        Scene MedicalHistoryViewScene = new Scene(medicalHistoryViewParent);
+
+        MedicalHistoryController controller = loader.getController();
+        controller.initData(patient, com_data_client);
+        //this line gets the Stage information
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(MedicalHistoryViewScene);
+        window.centerOnScreen();
+
+        window.show();
+
     }
 
     private static void releaseResources(Com_data_client c) {
