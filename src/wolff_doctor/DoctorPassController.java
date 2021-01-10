@@ -55,9 +55,9 @@ public class DoctorPassController implements Initializable {
                 if (!com_data_client.isSocket_created()) {
                     try {
                         Socket socket = new Socket(com_data_client.getIp_address(), 9000);
-                        if (com_data_client.getSocket() == null) {
-                            errorLabel.setText("Connection could not be established");
-                        } else if (com_data_client.getSocket().isConnected()) {
+                        if (socket == null) {
+                            errorLabel.setText("Connection could not be established 1");
+                        } else if (socket.isConnected()) {
                             com_data_client.setSocket(socket);
                             OutputStream outputStream = socket.getOutputStream();
                             com_data_client.setOutputStream(outputStream);
@@ -72,7 +72,11 @@ public class DoctorPassController implements Initializable {
 
                             openDoctorMenu(event);
 
+                        }else{
+                         errorLabel.setText("Connection could not be established 1");
+  
                         }
+                            
                     } catch (Exception e) {
                         System.err.println("No se pudo establecer conexión con: " + com_data_client.getIp_address() + " a travez del puerto: " + 9000);
                         errorLabel.setText("Connection could not be established");
