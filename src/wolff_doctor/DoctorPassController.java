@@ -97,6 +97,7 @@ public class DoctorPassController implements Initializable {
      * @param event
      * @throws IOException
      */
+    @FXML
     private void openDoctorMenu(ActionEvent event) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
