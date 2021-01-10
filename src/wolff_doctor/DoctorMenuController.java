@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -158,6 +159,7 @@ public class DoctorMenuController implements Initializable {
                     public void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
                         if (empty) {
+                            setAlignment(Pos.CENTER);
                             setGraphic(null);
                             setText(null);
                         } else {
@@ -165,6 +167,7 @@ public class DoctorMenuController implements Initializable {
                                 Patient patient = getTableView().getItems().get(getIndex());
                                 buttonAction(patient, event);
                             });
+                            setAlignment(Pos.CENTER);
                             setGraphic(btn);
                             setText(null);
                         }

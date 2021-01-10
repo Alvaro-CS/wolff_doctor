@@ -53,21 +53,36 @@ public class DoctorPassController implements Initializable {
         } else {
             if (!passwordField.getText().isEmpty() && passwordField.getText().equals(password)) {
                 if (!com_data_client.isSocket_created()) {
-                    Socket socket = new Socket(com_data_client.getIp_address(), 9000);
-                    com_data_client.setSocket(socket);
-                    OutputStream outputStream = socket.getOutputStream();
-                    com_data_client.setOutputStream(outputStream);
-                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-                    com_data_client.setObjectOutputStream(objectOutputStream);
-                    InputStream inputStream = socket.getInputStream();
-                    com_data_client.setInputStream(inputStream);
-                    ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-                    com_data_client.setObjectInputStream(objectInputStream);
+                    try {
+                        Socket socket = new Socket(com_data_client.getIp_address(), 9000);
+                        if (com_data_client.getSocket() == null) {
+                            errorLabel.setText("Connection could not be established");
+                        } else if (com_data_client.getSocket().isConnected()) {
+                            com_data_client.setSocket(socket);
+                            OutputStream outputStream = socket.getOutputStream();
+                            com_data_client.setOutputStream(outputStream);
+                            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+                            com_data_client.setObjectOutputStream(objectOutputStream);
+                            InputStream inputStream = socket.getInputStream();
+                            com_data_client.setInputStream(inputStream);
+                            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+                            com_data_client.setObjectInputStream(objectInputStream);
 
-                    com_data_client.setSocket_created(true);
+                            com_data_client.setSocket_created(true);
 
+                            openDoctorMenu(event);
+
+                        }
+                    } catch (Exception e) {
+                        System.err.println("No se pudo establecer conexión con: " + com_data_client.getIp_address() + " a travez del puerto: " + 9000);
+                        errorLabel.setText("Connection could not be established");
+                    }
+
+                } else if (com_data_client.getSocket() == null) {
+                    errorLabel.setText("Connection could not be established");
+                } else if (com_data_client.isSocket_created()) {
+                    openDoctorMenu(event);
                 }
-                openDoctorMenu(event);
 
             } else {
                 //if Fields are empty

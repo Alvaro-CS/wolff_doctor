@@ -41,7 +41,7 @@
                   <Font name="Ebrima Bold" size="40.0" />
                </font>
             </Label>
-            <Button alignment="CENTER" layoutX="733.0" layoutY="44.0" mnemonicParsing="false" onAction="#logOut" prefHeight="45.0" text="LOGOUT" />
+            <Button alignment="CENTER" layoutX="733.0" layoutY="44.0" mnemonicParsing="false" onAction="#logOut" prefHeight="45.0" text="Log Out" />
             <Label fx:id="recordLabel" alignment="CENTER" layoutX="468.0" layoutY="56.0" prefHeight="21.0" prefWidth="208.0" textAlignment="CENTER" textFill="#da0e0e">
                <font>
                   <Font name="System Bold" size="15.0" />

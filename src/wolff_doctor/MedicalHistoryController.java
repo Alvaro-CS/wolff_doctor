@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -186,11 +187,13 @@ public class MedicalHistoryController implements Initializable {
                 final TableCell<Clinical_record, String> cell = new TableCell<Clinical_record, String>() {
 
                     final Button btn = new Button("VIEW");
+                   
 
                     @Override
                     public void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
                         if (empty) {
+                            setAlignment(Pos.CENTER);
                             setGraphic(null);
                             setText(null);
                         } else {
@@ -198,6 +201,7 @@ public class MedicalHistoryController implements Initializable {
                                 Clinical_record clinical_record = getTableView().getItems().get(getIndex());
                                 buttonCommentsAction(clinical_record, event);
                             });
+                            setAlignment(Pos.CENTER);
                             setGraphic(btn);
                             setText(null);
                         }

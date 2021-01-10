@@ -8,23 +8,19 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="387.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wolff_doctor.DoctorPassController">
+<AnchorPane id="AnchorPane" prefHeight="232.0" prefWidth="387.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wolff_doctor.DoctorPassController">
     <children>
-      <Label layoutX="47.0" layoutY="23.0" prefHeight="45.0" prefWidth="314.0" text="Welcome to the doctor app!&#10;Please insert DOCTOR password" textAlignment="CENTER">
-         <font>
-            <Font name="Georgia Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="171.0" prefHeight="18.0" prefWidth="374.0" textAlignment="CENTER" textFill="RED">
+      <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="188.0" prefHeight="18.0" prefWidth="374.0" textAlignment="CENTER" textFill="RED">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="118.0" layoutY="134.0" mnemonicParsing="false" onAction="#enterButtonOnAction" text="ENTER" />
-      <PasswordField fx:id="passwordField" layoutX="118.0" layoutY="87.0" promptText="Password" />
-      <Group layoutX="222.0" layoutY="128.0">
+      <Button layoutX="118.0" layoutY="146.0" mnemonicParsing="false" onAction="#enterButtonOnAction" text="ENTER" />
+      <PasswordField fx:id="passwordField" layoutX="118.0" layoutY="103.0" promptText="Password" />
+      <Group layoutX="222.0" layoutY="140.0">
          <children>
             <Button cancelButton="true" defaultButton="true" mnemonicParsing="false" onAction="#comDataMenu" prefHeight="35.0" prefWidth="0.0" style="-fx-background-color: e3e4e5;">
                <effect>
@@ -40,5 +36,14 @@
             </Button>
          </children>
       </Group>
+      <Pane prefHeight="77.0" prefWidth="387.0" style="-fx-background-color: E3E4E5;">
+         <children>
+            <Label layoutX="56.0" layoutY="16.0" prefHeight="45.0" prefWidth="275.0" text="Welcome to the doctor app!&#10;Please insert DOCTOR password" textAlignment="CENTER">
+               <font>
+                  <Font name="Ebrima Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
     </children>
 </AnchorPane>
