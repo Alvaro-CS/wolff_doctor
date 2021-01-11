@@ -23,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -78,7 +79,7 @@ public class RecordCommentsController implements Initializable {
         backHistory(event);
     }
 
-    private void backHistory(ActionEvent event) throws IOException {
+    public void backHistory(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
 
         loader.setLocation(getClass().getResource("MedicalHistoryView.fxml"));
@@ -89,11 +90,25 @@ public class RecordCommentsController implements Initializable {
         MedicalHistoryController controller = loader.getController();
         controller.initData(patientMoved, com_data_client);
         //this line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage window = new Stage();
         window.setScene(MedicalHistoryViewScene);
         window.centerOnScreen();
+        window.setTitle("WOLFFGRAM");
+        window.getIcons().add(new Image("/wolff_doctor/images/logo.png"));
+        window.show();
 
         window.show();
+        
+        window.setOnCloseRequest(e->{
+            try {
+                controller.backToMenu(event);
+            } catch (IOException ex) {
+                Logger.getLogger(MedicalHistoryController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
+        Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        myStage.close();
 
     }
 

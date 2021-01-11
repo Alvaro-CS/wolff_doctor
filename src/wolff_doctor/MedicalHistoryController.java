@@ -25,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import utilities.ECGplot;
@@ -260,11 +261,19 @@ public class MedicalHistoryController implements Initializable {
         DoctorMenuController controller = loader.getController();
         controller.initData(com_data_client);
         //this line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage window = new Stage();
         window.setScene(DoctorMenuViewScene);
         window.centerOnScreen();
+        window.setTitle("WOLFFGRAM");
+        window.getIcons().add(new Image("/wolff_doctor/images/logo.png"));
+        window.show();
 
         window.show();
+        
+        Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        myStage.close();
+        
+        
     }
 
     public void openCommentsEditor(Clinical_record clinical_record, ActionEvent event) throws IOException {
@@ -274,10 +283,24 @@ public class MedicalHistoryController implements Initializable {
         RecordCommentsController controller = loader.getController();
         controller.initData(clinical_record,com_data_client,patientMoved);
 
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage window = new Stage();
         window.setScene(RecordCommentsViewScene);
         window.centerOnScreen();
+        window.setTitle("WOLFFGRAM");
+        window.getIcons().add(new Image("/wolff_doctor/images/logo.png"));
+        window.show();
 
         window.show();
+        
+        window.setOnCloseRequest(e->{
+            try {
+                controller.backHistory(event);
+            } catch (IOException ex) {
+                Logger.getLogger(MedicalHistoryController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+                
+        Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        myStage.close();
     }
 }

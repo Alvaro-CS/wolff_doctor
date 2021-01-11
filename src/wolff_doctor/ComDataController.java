@@ -4,6 +4,8 @@ import POJOS.Com_data_client;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class ComDataController implements Initializable {
@@ -32,13 +35,24 @@ public class ComDataController implements Initializable {
         controller.initData(ipAdressField.getText());
 
         //this line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
+        Stage window = new Stage();
         window.setScene(DoctorPassViewScene);
         window.centerOnScreen();
-
+        window.setTitle("WOLFFGRAM");
+        window.getIcons().add(new Image("/wolff_doctor/images/logo.png"));
         window.show();
 
+        window.show();
+        
+        Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        myStage.close();
+
     }
+    
+    
+
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
