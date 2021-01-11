@@ -28,7 +28,7 @@ public class ECGplot {
 
         Stage stage = new Stage();
         stage.setTitle("Your ECG");
-        stage.getIcons().add(new Image("/wolff_patient/images/ecg.png"));
+        stage.getIcons().add(new Image("/wolff_doctor/images/ecg.png"));
 
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
