@@ -14,6 +14,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +25,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -111,11 +114,25 @@ public class DoctorPassController implements Initializable {
         DoctorMenuController controller = loader.getController();
         controller.initData(com_data_client);
         //this line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage window = new Stage();
         window.setScene(DoctorMenuViewScene);
         window.centerOnScreen();
+        window.setTitle("WOLFFGRAM");
+        window.getIcons().add(new Image("/wolff_doctor/images/logo.png"));
+        window.show();
 
         window.show();
+        
+        window.setOnCloseRequest(e->{
+            try {
+                controller.logOut(event);
+            } catch (IOException ex) {
+                Logger.getLogger(DoctorPassController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
+        Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        myStage.close();
     }
 
     @FXML
@@ -123,15 +140,33 @@ public class DoctorPassController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("ComDataView.fxml"));
         Parent comDataViewParent = loader.load();
+        
+        //Load the controller
+        ComDataController controller = loader.getController();
 
         Scene ComDataViewScene = new Scene(comDataViewParent);
 
         //this line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage window = new Stage();
         window.setScene(ComDataViewScene);
         window.centerOnScreen();
+        window.setTitle("WOLFFGRAM");
+        window.getIcons().add(new Image("/wolff_doctor/images/logo.png"));
+        window.show();
 
         window.show();
+        
+        window.setOnCloseRequest(e->{
+            try {
+                controller.saveIP(event);
+            } catch (IOException ex) {
+                Logger.getLogger(DoctorPassController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+           
+        
+        Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        myStage.close();
     }
 
     @Override

@@ -31,6 +31,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -218,11 +219,17 @@ public class DoctorMenuController implements Initializable {
         Scene DoctorPassViewScene = new Scene(doctorPassViewParent);
 
         //this line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage window = new Stage();
         window.setScene(DoctorPassViewScene);
         window.centerOnScreen();
+        window.setTitle("WOLFFGRAM");
+        window.getIcons().add(new Image("/wolff_doctor/images/logo.png"));
+        window.show();
 
         window.show();
+        
+        Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        myStage.close();
     }
 
     /**
@@ -243,11 +250,25 @@ public class DoctorMenuController implements Initializable {
         MedicalHistoryController controller = loader.getController();
         controller.initData(patient, com_data_client);
         //this line gets the Stage information
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage window = new Stage();
         window.setScene(MedicalHistoryViewScene);
         window.centerOnScreen();
+        window.setTitle("WOLFFGRAM");
+        window.getIcons().add(new Image("/wolff_doctor/images/logo.png"));
+        window.show();
 
         window.show();
+        
+        window.setOnCloseRequest(e->{
+            try {
+                controller.backToMenu(event);
+            } catch (IOException ex) {
+                Logger.getLogger(DoctorMenuController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
+        Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        myStage.close();
 
     }
 
