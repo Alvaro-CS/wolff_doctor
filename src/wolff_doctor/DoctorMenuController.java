@@ -32,6 +32,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -42,6 +43,7 @@ import javafx.util.Callback;
 public class DoctorMenuController implements Initializable {
 
     private ClientThreadsServer clientThreadsServer; //we create a reference for accesing different methods
+    private boolean connected;
 
     private Com_data_client com_data_client;
     @FXML
@@ -84,17 +86,24 @@ public class DoctorMenuController implements Initializable {
      * This method is used for passing parameters between screens.
      *
      * @param com_data_client
+     * @param connected
      */
-    public void initData(Com_data_client com_data_client) {
+    public void initData(Com_data_client com_data_client, Boolean connected) {
+        this.connected = connected;
         this.com_data_client = com_data_client;
-        loadPatients();
+        if (connected) {
+            loadPatients();
+        } else {
+            recordLabel.setTextFill(Color.RED);
+            recordLabel.setText("Server connection failed...");
+        }
 
     }
 
     public void loadPatients() {
         list = FXCollections.observableArrayList();
 
-        ArrayList<Patient> patients = getPatients();//TODO GETPATIENTS
+        ArrayList<Patient> patients = getPatients();
         list.addAll(patients);
         table.setItems(list);
 
@@ -227,7 +236,7 @@ public class DoctorMenuController implements Initializable {
         window.show();
 
         window.show();
-        
+
         Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         myStage.close();
     }
@@ -248,7 +257,7 @@ public class DoctorMenuController implements Initializable {
         Scene MedicalHistoryViewScene = new Scene(medicalHistoryViewParent);
 
         MedicalHistoryController controller = loader.getController();
-        controller.initData(patient, com_data_client);
+        controller.initData(patient, com_data_client, connected);
         //this line gets the Stage information
         Stage window = new Stage();
         window.setScene(MedicalHistoryViewScene);
@@ -258,15 +267,15 @@ public class DoctorMenuController implements Initializable {
         window.show();
 
         window.show();
-        
-        window.setOnCloseRequest(e->{
+
+        window.setOnCloseRequest(e -> {
             try {
                 controller.backToMenu(event);
             } catch (IOException ex) {
                 Logger.getLogger(DoctorMenuController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+
         Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         myStage.close();
 

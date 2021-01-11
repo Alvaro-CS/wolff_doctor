@@ -112,7 +112,7 @@ public class DoctorPassController implements Initializable {
         Parent doctorMenuViewParent = loader.load();
         Scene DoctorMenuViewScene = new Scene(doctorMenuViewParent);
         DoctorMenuController controller = loader.getController();
-        controller.initData(com_data_client);
+        controller.initData(com_data_client,true);
         //this line gets the Stage information
         Stage window = new Stage();
         window.setScene(DoctorMenuViewScene);

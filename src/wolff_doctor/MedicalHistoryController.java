@@ -34,7 +34,8 @@ public class MedicalHistoryController implements Initializable {
 
     private Com_data_client com_data_client;
     private Patient patientMoved;
-
+    
+    private boolean connected;
     @FXML
     private Label buttonsLabel;
 
@@ -232,9 +233,11 @@ public class MedicalHistoryController implements Initializable {
      *
      * @param patient
      * @param com_data_client
+     * @param connected
      */
-    public void initData(Patient patient, Com_data_client com_data_client) {
+    public void initData(Patient patient, Com_data_client com_data_client, Boolean connected) {
         this.com_data_client = com_data_client;
+        this.connected=connected;
         this.patientMoved = patient;
         nameLabel.setText("Patient's name:\n " + patientMoved.getName());
         loadClinical_records();
@@ -259,7 +262,7 @@ public class MedicalHistoryController implements Initializable {
         Parent doctorMenuViewParent = loader.load();
         Scene DoctorMenuViewScene = new Scene(doctorMenuViewParent);
         DoctorMenuController controller = loader.getController();
-        controller.initData(com_data_client);
+        controller.initData(com_data_client,connected);
         //this line gets the Stage information
         Stage window = new Stage();
         window.setScene(DoctorMenuViewScene);
@@ -287,7 +290,7 @@ public class MedicalHistoryController implements Initializable {
         Parent recordCommentsViewParent = loader.load();
         Scene RecordCommentsViewScene = new Scene(recordCommentsViewParent);
         RecordCommentsController controller = loader.getController();
-        controller.initData(clinical_record,com_data_client,patientMoved);
+        controller.initData(clinical_record,com_data_client,patientMoved,connected);
 
         Stage window = new Stage();
         window.setScene(RecordCommentsViewScene);

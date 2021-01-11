@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="427.0" prefWidth="587.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wolff_doctor.RecordCommentsController">
    <children>
-      <Label layoutX="196.0" layoutY="45.0" text="Record comments">
+      <Label layoutX="50.0" layoutY="46.0" text="Record comments">
          <font>
             <Font name="Ebrima" size="26.0" />
          </font>
@@ -19,6 +19,6 @@
          </font>
       </Button>
       <TextArea fx:id="commentsArea" layoutX="66.0" layoutY="109.0" prefHeight="200.0" prefWidth="468.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
-      <Label fx:id="errorLabel" layoutX="415.0" layoutY="14.0" prefHeight="51.0" prefWidth="157.0" />
+      <Label fx:id="errorLabel" layoutX="293.0" layoutY="39.0" prefHeight="51.0" prefWidth="244.0" />
    </children>
 </AnchorPane>

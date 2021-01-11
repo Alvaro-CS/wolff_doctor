@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +40,8 @@ public class RecordCommentsController implements Initializable {
     private Com_data_client com_data_client;
     private Patient patientMoved;
     private Clinical_record clinical_record;
-
+    private boolean connected;
+    
     @FXML
     private Label errorLabel;
 
@@ -51,8 +51,10 @@ public class RecordCommentsController implements Initializable {
      * @param clinical_record
      * @param com_data_client
      * @param patient
+     * @param connected
      */
-    public void initData(Clinical_record clinical_record, Com_data_client com_data_client, Patient patient) {
+    public void initData(Clinical_record clinical_record, Com_data_client com_data_client, Patient patient,Boolean connected) {
+        this.connected=connected;
         this.clinical_record = clinical_record;
         this.com_data_client = com_data_client;
         this.patientMoved = patient;
@@ -78,10 +80,12 @@ public class RecordCommentsController implements Initializable {
             if (signal == 0) {
                 errorLabel.setTextFill(Color.RED);
                 errorLabel.setText("Connection to the server lost.\nPlease log out and try again.");
+                connected=false;
             } else {
+                System.out.println(objectInputStream.readByte());
+
                 int id = clinical_record.getId(); //the id of the record we want to change
                 patientMoved.getClinical_record_list().get(id - 1).setComments(commentsArea.getText());
-                System.out.println(objectInputStream.readByte());
 
                 Patient p = new Patient(patientMoved); //for not getting troubles with streams
 
@@ -107,7 +111,7 @@ public class RecordCommentsController implements Initializable {
         Scene MedicalHistoryViewScene = new Scene(medicalHistoryViewParent);
 
         MedicalHistoryController controller = loader.getController();
-        controller.initData(patientMoved, com_data_client);
+        controller.initData(patientMoved, com_data_client,connected);
         //this line gets the Stage information
         Stage window = new Stage();
         window.setScene(MedicalHistoryViewScene);
@@ -122,7 +126,7 @@ public class RecordCommentsController implements Initializable {
             try {
                 controller.backToMenu(event);
             } catch (IOException ex) {
-                Logger.getLogger(MedicalHistoryController.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RecordCommentsController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
 
