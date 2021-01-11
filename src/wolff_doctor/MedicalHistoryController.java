@@ -267,8 +267,14 @@ public class MedicalHistoryController implements Initializable {
         window.setTitle("WOLFFGRAM");
         window.getIcons().add(new Image("/wolff_doctor/images/logo.png"));
         window.show();
-
-        window.show();
+        
+        window.setOnCloseRequest(e -> {
+            try {
+                controller.logOut(event);
+            } catch (IOException ex) {
+                Logger.getLogger(MedicalHistoryController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         
         Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         myStage.close();
