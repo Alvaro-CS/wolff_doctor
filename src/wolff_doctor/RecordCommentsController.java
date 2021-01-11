@@ -9,6 +9,7 @@ import POJOS.Clinical_record;
 import POJOS.Com_data_client;
 import POJOS.Patient;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,8 +23,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
@@ -38,6 +41,10 @@ public class RecordCommentsController implements Initializable {
     private Com_data_client com_data_client;
     private Patient patientMoved;
     private Clinical_record clinical_record;
+
+    @FXML
+    private Label errorLabel;
+
     /**
      * This method gets the comments to show them.
      *
@@ -46,37 +53,49 @@ public class RecordCommentsController implements Initializable {
      * @param patient
      */
     public void initData(Clinical_record clinical_record, Com_data_client com_data_client, Patient patient) {
-        this.clinical_record=clinical_record;
+        this.clinical_record = clinical_record;
         this.com_data_client = com_data_client;
         this.patientMoved = patient;
         commentsArea.setText(clinical_record.getComments());
     }
 
     @FXML
-    private void saveComments(ActionEvent event) throws IOException {
-        int id= clinical_record.getId(); //the id of the record we want to change
-        patientMoved.getClinical_record_list().get(id-1).setComments(commentsArea.getText());
+    private void saveComments(ActionEvent event) throws IOException, InterruptedException {
+
         try {
             ObjectOutputStream objectOutputStream = com_data_client.getObjectOutputStream();
+            ObjectInputStream objectInputStream = com_data_client.getObjectInputStream();
+
             //Sending order
             String order = "UPDATE";
             objectOutputStream.writeObject(order);
             objectOutputStream.reset();
 
             System.out.println("Order" + order + "sent");
+            Thread.sleep(100); //Time for receiving the signal that checks server is active.
+            int signal = objectInputStream.available();
+            System.out.println("Signal: " + signal);
+            if (signal == 0) {
+                errorLabel.setTextFill(Color.RED);
+                errorLabel.setText("Connection to the server lost.\nPlease log out and try again.");
+            } else {
+                int id = clinical_record.getId(); //the id of the record we want to change
+                patientMoved.getClinical_record_list().get(id - 1).setComments(commentsArea.getText());
+                System.out.println(objectInputStream.readByte());
 
-            Patient p= new Patient(patientMoved); //for not getting troubles with streams
+                Patient p = new Patient(patientMoved); //for not getting troubles with streams
 
-            //Sending patient
-            objectOutputStream.writeObject(p);
-            objectOutputStream.reset();
-            System.out.println("Patient data sent to register in server");
-
+                //Sending patient
+                objectOutputStream.writeObject(p);
+                objectOutputStream.reset();
+                System.out.println("Patient data sent to register in server");
+                backHistory(event);
+            }
         } catch (IOException ex) {
             System.out.println("Unable to write the object on the server.");
             Logger.getLogger(RecordCommentsController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        backHistory(event);
+
     }
 
     public void backHistory(ActionEvent event) throws IOException {
@@ -98,15 +117,15 @@ public class RecordCommentsController implements Initializable {
         window.show();
 
         window.show();
-        
-        window.setOnCloseRequest(e->{
+
+        window.setOnCloseRequest(e -> {
             try {
                 controller.backToMenu(event);
             } catch (IOException ex) {
                 Logger.getLogger(MedicalHistoryController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
-        
+
         Stage myStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         myStage.close();
 

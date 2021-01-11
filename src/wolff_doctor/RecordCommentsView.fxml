@@ -19,5 +19,6 @@
          </font>
       </Button>
       <TextArea fx:id="commentsArea" layoutX="66.0" layoutY="109.0" prefHeight="200.0" prefWidth="468.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+      <Label fx:id="errorLabel" layoutX="415.0" layoutY="14.0" prefHeight="51.0" prefWidth="157.0" />
    </children>
 </AnchorPane>
