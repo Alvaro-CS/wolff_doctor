@@ -126,9 +126,7 @@ public class DoctorMenuController implements Initializable {
                 clientThreadsServer.wait();
             }
             return clientThreadsServer.getPatients();
-        } catch (IOException ex) {
-            Logger.getLogger(DoctorMenuController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
+        } catch (IOException | InterruptedException ex) {
             Logger.getLogger(DoctorMenuController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
